@@ -1,4 +1,5 @@
 import 'package:chatty/colors/colors.dart';
+import 'package:chatty/model/Chat_model.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
@@ -10,6 +11,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
     final _textController = TextEditingController();
+    final List<ChatMessage> _messages = [];
 
   @override
   Widget build(BuildContext context) {
