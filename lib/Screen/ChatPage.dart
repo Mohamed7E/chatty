@@ -48,7 +48,14 @@ class _ChatPageState extends State<ChatPage> {
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     setState(
-                      () {},
+                      () {
+                         _messages.add(
+                          ChatMessage(
+                            text: _textController.text,
+                            chatMessageType: ChatMessageType.user,
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
