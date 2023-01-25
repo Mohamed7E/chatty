@@ -1,3 +1,4 @@
+import 'package:chatty/API/api_gpt.dart';
 import 'package:chatty/colors/colors.dart';
 import 'package:chatty/model/Chat_model.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,9 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
     final _textController = TextEditingController();
+    final _scrollController = ScrollController();
     final List<ChatMessage> _messages = [];
+    late bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +58,27 @@ class _ChatPageState extends State<ChatPage> {
                             chatMessageType: ChatMessageType.user,
                           ),
                         );
+                     isLoading = true;
                       },
                     );
+                    var input = _textController.text;
+                    _textController.clear();
+                    Future.delayed(const Duration(milliseconds: 50))
+                        .then((_) => _scrollDown());
+                    generateResponse(input).then((value) {
+                      setState(() {
+                        isLoading = false;
+                        _messages.add(
+                          ChatMessage(
+                            text: value,
+                            chatMessageType: ChatMessageType.bot,
+                          ),
+                        );
+                      });
+                    });
+                    _textController.clear();
+                    Future.delayed(const Duration(milliseconds: 50))
+                        .then((_) => _scrollDown());
                   },
                 ),
               ],
@@ -64,6 +86,13 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       ),
+    );
+  }
+  void _scrollDown() {
+    _scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeOut,
     );
   }
 }
