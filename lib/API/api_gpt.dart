@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
  
 
   Future<String> generateResponse(String prompt) async {
-    final apiKey = "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";
+    final apiKey = "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";
 
 
     var url = Uri.https("api.openai.com", "/v1/completions");

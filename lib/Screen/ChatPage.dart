@@ -17,6 +17,11 @@ class _ChatPageState extends State<ChatPage> {
     late bool isLoading;
 
   @override
+  void initState() {
+    super.initState();
+    isLoading = false;
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +32,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Color.fromARGB(255, 55, 78, 56),
       ),
       backgroundColor: Color.fromARGB(255, 80, 81, 80),
-       body: Column(
+      body: Column(
         children: [
           Expanded(
               child: Container(
@@ -47,29 +52,34 @@ class _ChatPageState extends State<ChatPage> {
                           type: message.chatMessageType);
                     },
                   ))),
-         
+          Visibility(
+            visible: isLoading,
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: CircularProgressIndicator(),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                 Expanded(
+                Expanded(
                   child: TextField(
                     controller: _textController,
                   ),
                 ),
-                
                 IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     setState(
                       () {
-                         _messages.add(
+                        _messages.add(
                           ChatMessage(
                             text: _textController.text,
                             chatMessageType: ChatMessageType.user,
                           ),
                         );
-                     isLoading = true;
+                        isLoading = true;
                       },
                     );
                     var input = _textController.text;
@@ -99,11 +109,24 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+
   Widget chatBubble({required chattext, required ChatMessageType? type}) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        
+        Container(
+            margin: type == ChatMessageType.bot
+                ? const EdgeInsets.fromLTRB(0, 10, 16, 0)
+                : const EdgeInsets.only(right: 16.0),
+            child: CircleAvatar(
+              backgroundColor: bgcolor,
+              child: type == ChatMessageType.bot
+                  ? Image.asset('asesst/44.jpg')
+                  : const Icon(
+                      Icons.person,
+                      color: Color.fromARGB(255, 155, 151, 151),
+                    ),
+            )),
         Expanded(
           child: Container(
             padding: const EdgeInsets.all(12),
@@ -128,6 +151,7 @@ class _ChatPageState extends State<ChatPage> {
       ],
     );
   }
+
   void _scrollDown() {
     _scrollController.animateTo(
       _scrollController.position.maxScrollExtent,
