@@ -9,6 +9,8 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
+    final _textController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +37,11 @@ class _ChatPageState extends State<ChatPage> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                 Expanded(
+                  child: TextField(
+                    controller: _textController,
+                  ),
+                ),
                 IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () async {
