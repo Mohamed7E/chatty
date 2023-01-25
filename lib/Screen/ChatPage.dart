@@ -1,3 +1,4 @@
+import 'package:chatty/colors/colors.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatefulWidget {
@@ -17,7 +18,19 @@ class _ChatPageState extends State<ChatPage> {
           style: TextStyle(fontSize: 35),
         ),
         backgroundColor: Color.fromARGB(255, 55, 78, 56),
-      )
+      ),
+       backgroundColor: Color.fromARGB(255, 80, 81, 80),
+       body: Column(
+        children: [
+          Expanded(
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: chatcolor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+              ))],)
       )
       ;
   }
