@@ -19,19 +19,35 @@ class _ChatPageState extends State<ChatPage> {
         ),
         backgroundColor: Color.fromARGB(255, 55, 78, 56),
       ),
-       backgroundColor: Color.fromARGB(255, 80, 81, 80),
-       body: Column(
+      backgroundColor: Color.fromARGB(255, 80, 81, 80),
+      body: Column(
         children: [
           Expanded(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-                  decoration: BoxDecoration(
-                    color: chatcolor,
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-              ))],)
-      )
-      ;
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+              decoration: BoxDecoration(
+                color: chatcolor,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () async {
+                    setState(
+                      () {},
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
