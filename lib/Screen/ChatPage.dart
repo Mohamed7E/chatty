@@ -10,6 +10,15 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Chatty",
+          style: TextStyle(fontSize: 35),
+        ),
+        backgroundColor: Color.fromARGB(255, 55, 78, 56),
+      )
+      )
+      ;
   }
 }
