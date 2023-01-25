@@ -27,17 +27,27 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Color.fromARGB(255, 55, 78, 56),
       ),
       backgroundColor: Color.fromARGB(255, 80, 81, 80),
-      body: Column(
+       body: Column(
         children: [
           Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              decoration: BoxDecoration(
-                color: chatcolor,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  decoration: BoxDecoration(
+                    color: chatcolor,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  child: ListView.builder(
+                    controller: _scrollController,
+                    itemCount: _messages.length,
+                    itemBuilder: (context, index) {
+                      var message = _messages[index];
+                      return chatBubble(
+                          chattext: message.text,
+                          type: message.chatMessageType);
+                    },
+                  ))),
+         
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -47,6 +57,7 @@ class _ChatPageState extends State<ChatPage> {
                     controller: _textController,
                   ),
                 ),
+                
                 IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () async {
@@ -86,6 +97,35 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ],
       ),
+    );
+  }
+  Widget chatBubble({required chattext, required ChatMessageType? type}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.only(bottom: 12),
+            decoration: BoxDecoration(
+                color: type == ChatMessageType.bot
+                    ? bgcolor
+                    : Color.fromARGB(255, 254, 253, 253),
+                borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12))),
+            child: Text(
+              chattext,
+              style: TextStyle(
+                color: type == ChatMessageType.bot ? textcolor : chatcolor,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
   void _scrollDown() {
